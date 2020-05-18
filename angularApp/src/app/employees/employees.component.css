@@ -1,0 +1,29 @@
+label {
+    font-size: large;
+    color: black;
+}
+
+input.ng-invalid.ng-touched {
+    border-bottom-color: darkred !important;
+    box-shadow: 0 1px 0 0 darkred !important;
+}
+
+span {
+    color: darkred;
+}
+
+
+/* .back {
+    background-color: whitesmoke;
+} */
+
+@media only screen and (min-width: 600px) {
+    .back {
+        background-color: whitesmoke;
+        height: 90vh;
+    }
+}
+
+button {
+    margin-bottom: 10px;
+}

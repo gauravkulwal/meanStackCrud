@@ -1,0 +1,90 @@
+<div class="row back">
+    <div class="col s12 m6">
+
+        <form #empForm="ngForm" (ngSubmit)="onSubmit(empForm)">
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="hidden" #_id="ngModel" name="_id" [(ngModel)]="empService.selectedEmployee._id">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" required #name="ngModel" name="name" [(ngModel)]="empService.selectedEmployee.name">
+                    <label>Name:<span>*</span></label>
+                    <span *ngIf="name.touched && name.invalid">Name is mandatory:</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s3">
+                    <label>Gender</label>
+                </div>
+
+                <p>
+                    <label>
+        <input class="with-gap" name="gender" type="radio" #gender="ngModel" value="Male" [(ngModel)]="empService.selectedEmployee.gender"  />
+        <span>Male</span>
+      </label>
+
+
+                    <label>
+        <input class="with-gap" name="gender" type="radio" #gender="ngModel" value="Female"  [(ngModel)]="empService.selectedEmployee.gender" />
+        <span>Female</span>
+      </label>
+                </p>
+
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" required #location="ngModel" name="location" [(ngModel)]="empService.selectedEmployee.location">
+                    <label>Location:<span>*</span></label>
+                    <span *ngIf="location.touched && location.invalid">location is mandatory:</span>
+                </div>
+            </div>
+            <label>Department :<span>*</span></label>
+            <select class="browser-default" required #department="ngModel" name="department" [(ngModel)]="empService.selectedEmployee.department">
+              <option value="" disabled selected>Select department</option>
+              <option *ngFor="let dep of Department" value="{{dep}}">{{dep}}</option>
+
+            </select>
+            <span *ngIf="department.touched && department.invalid">Department is mandatory:</span>
+            <br>
+            <button class="btn right" [disabled]="empForm.invalid" type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="col s12 m6">
+        <table class="highlight">
+            <tr>
+                <td>Serial</td>
+                <td>Name</td>
+                <td>Gender</td>
+                <td>Location</td>
+                <td>Department</td>
+                <td></td>
+            </tr>
+            <tr *ngFor="let e of empService.employees | paginate: { itemsPerPage: 8, currentPage: p }; let i=index">
+                <td>{{ 8* (p-1) + i + 1 }}</td>
+                <td>{{e.name}}</td>
+                <td>{{e.gender}}</td>
+                <td>{{e.location}}</td>
+                <td>{{e.department}}</td>
+                <td>
+                    <a>
+                        <i class="material-icons" (click)="onEdit(e)">edit</i>
+                    </a>
+                    <a>
+                        <i class="material-icons" (click)="onDelete(e._id)">delete</i>
+                    </a>
+                </td>
+            </tr>
+
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+    </div>
+
+
+</div>
